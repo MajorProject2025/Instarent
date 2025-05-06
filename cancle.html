@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Cancelled</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background:linear-gradient(to right,#9b0050,#0200d6);
+            font-family: Arial, sans-serif;
+        }
+
+        .cancel-container {
+            text-align: center;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .cross-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #ff4444;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+            position: relative;
+            animation: scaleIn 0.5s ease-out;
+        }
+
+        .cross-circle::before,
+        .cross-circle::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 6px;
+            background-color: white;
+            border-radius: 3px;
+        }
+
+        .cross-circle::before {
+            transform: rotate(45deg);
+            animation: crossmark1 0.3s ease-out 0.5s both;
+        }
+
+        .cross-circle::after {
+            transform: rotate(-45deg);
+            animation: crossmark2 0.3s ease-out 0.5s both;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border:2px solid #eddd5e;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+
+        .btn-retry {
+            background-color: #9b0050;
+            color: white;
+        }
+
+        .btn-retry:hover {
+            background-color: #eddd5e;
+            color: rgb(0, 0, 0);
+            border:2px solid #9b0050;
+        }
+
+        .btn-home {
+            background-color: #9b0050;
+            color: white;
+
+        }
+
+        .btn-home:hover {
+            background-color: #eddd5e;
+            color: rgb(0, 0, 0);
+            border:2px solid #9b0050;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes crossmark1 {
+            from {
+                opacity: 0;
+                transform: rotate(45deg) scale(0.3);
+            }
+            to {
+                opacity: 1;
+                transform: rotate(45deg) scale(1);
+            }
+        }
+
+        @keyframes crossmark2 {
+            from {
+                opacity: 0;
+                transform: rotate(-45deg) scale(0.3);
+            }
+            to {
+                opacity: 1;
+                transform: rotate(-45deg) scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cancel-container">
+        <div class="cross-circle"></div>
+        <h1>Payment Cancelled</h1>
+        <p>Your payment has been cancelled. No charges have been made to your account.</p>
+        <div class="btn-group">
+            <a href="cart.html" class="btn btn-retry">Try Again</a>
+            <a href="index.html" class="btn btn-home">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

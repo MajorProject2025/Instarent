@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Payment</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background:linear-gradient(to right,#9b0050,#0200d6);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .payment-image {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 30px auto;
+        }
+
+        .payment-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .payment-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .payment-header h1 {
+            color: #2d2d2d;
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .submit-button {
+            background-color: #9b0050;
+            color: rgb(255, 255, 255);
+            padding: 14px;
+            border:2px solid #eddd5e;
+            border-radius: 6px;
+            width: 100%;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-button:hover {
+            background-color: #f1e47e;
+            color: rgb(0, 0, 0);
+            border:2px solid #9b0050;
+        }
+
+        .cancel-button {
+            background-color: #dc3545;
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            width: 100%;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .cancel-button:hover {
+            background-color: #c82333;
+        }
+
+        .secure-badge {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .secure-badge i {
+            margin-right: 5px;
+            color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container">
+        <div class="payment-header">
+            <h1>Secure Payment</h1>
+            <p>Proceed the payment or abort the payment</p>
+        </div>
+    
+        <div class="payment-image-container">
+            <img src="img/pay-money-icon.png" alt="Payment Information" class="payment-image">
+        </div>
+
+        <div class="button-group">
+            <button type="button" id="pay-btn" class="submit-button">Pay Now</button>
+            <a href="cancle.html" class="submit-button" style="text-align: center;">Cancel</a>
+        </div>
+
+        <div class="secure-badge">
+            <i>🔒</i> Your payment information is secure and encrypted
+        </div>
+    </div>
+
+    <!-- Razorpay Checkout Script -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <!-- JS logic -->
+    <script>
+        // Get amount from localStorage or use default 500
+        const cartAmount = parseInt(localStorage.getItem("cartTotal")) || 500;
+        const amountInPaise = cartAmount * 100;
+
+        document.getElementById("pay-btn").addEventListener("click", function () {
+            var options = {
+                "key": "rzp_test_jnoJYDG2JPk2Uv", // Replace with your Razorpay Test Key
+                "amount": amountInPaise, // Amount is in paise (₹500.00)
+                "currency": "INR",
+                "name": "Instarent",
+                "description": "Test Transaction",
+                "handler": function (response){
+                    // On successful payment
+                    window.location.href = "success.html";
+                },
+                "prefill": {
+                    "name": "Customer Name",
+                    "email": "test@example.com",
+                    "contact": "9999999999"
+                },
+                "theme": {
+                    "color": "#9b0050"
+                },
+                "modal": {
+                    "ondismiss": function(){
+                        window.location.href = "cancle.html";
+                    }
+                }
+            };
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+        });
+    </script>
+</body>
+</html>
