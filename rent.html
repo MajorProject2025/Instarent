@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rent Calculator</title>
+    <style>
+       /* General Styles */
+body {
+    background:linear-gradient(to right,#9b0050,#0200d6);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 100px;
+    box-sizing: border-box;
+}
+
+/* Main Container */
+.container {
+    max-width: 800px;
+    margin: auto;
+    background: #fff;
+    padding: 80px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading */
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Labels */
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* Input Fields and Select Dropdown */
+input[type="date"],
+select,
+input[type="number"] {
+    width: 100%;
+    padding: 15px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+/* Button Styles */
+button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background: #9b0050;
+    color: white;
+    border:2px solid #eddd5e;
+    border-radius: 4px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+button:hover {
+    border:2px solid #9b0050;
+    background: #eddd5e;
+    color: black;
+}
+
+/* Result Box */
+.result {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #e9ecef;
+    border-radius: 4px;
+}
+
+.result p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Rent Calculator (₹)</h1>
+
+        <label for="purchaseDate">Purchase Date:</label>
+        <input type="date" id="purchaseDate" required>
+
+        <label for="productType">Product Type:</label>
+        <select id="productType" required>
+            <option value="">Select Product Type</option>
+            <option value="electronics">Electronics</option>
+            <option value="furniture">Furniture</option>
+            <option value="vehicles">Vehicles</option>
+        </select>
+
+        <label for="purchasePrice">Purchasing Price (₹):</label>
+        <input type="number" id="purchasePrice" placeholder="Enter price in ₹" min="1" required>
+
+        <button onclick="calculateRent()">Calculate Rent</button>
+
+        <div class="result" id="result" style="display: none;">
+            <p><strong>Rent for 1 Month:</strong> <span id="rent1Month"></span></p>
+            <p><strong>Rent for 6 Months:</strong> <span id="rent6Months"></span></p>
+            <p><strong>Rent for 9 Months:</strong> <span id="rent9Months"></span></p>
+            <p><strong>Rent for 1 Year:</strong> <span id="rent1Year"></span></p>
+        </div>
+    </div>
+
+    <script>
+        function calculateRent() {
+            // Get user inputs
+            const purchasePrice = parseFloat(document.getElementById('purchasePrice').value);
+            const productType = document.getElementById('productType').value;
+
+            // Validate inputs
+            if (!purchasePrice || !productType) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            // Define rent rates based on product type (in percentage of purchase price per month)
+            let monthlyRate = 0;
+            switch (productType) {
+                case 'electronics':
+                    monthlyRate = 0.05; // 5% of purchase price per month
+                    break;
+                case 'furniture':
+                    monthlyRate = 0.03; // 3% of purchase price per month
+                    break;
+                case 'vehicles':
+                    monthlyRate = 0.1; // 10% of purchase price per month
+                    break;
+                default:
+                    alert("Invalid product type.");
+                    return;
+            }
+
+            // Calculate rents
+            const rent1Month = (purchasePrice * monthlyRate).toFixed(2);
+            const rent6Months = (purchasePrice * monthlyRate * 6).toFixed(2);
+            const rent9Months = (purchasePrice * monthlyRate * 9).toFixed(2);
+            const rent1Year = (purchasePrice * monthlyRate * 12).toFixed(2);
+
+            // Display results with ₹ symbol
+            document.getElementById('rent1Month').textContent = `₹${rent1Month}`;
+            document.getElementById('rent6Months').textContent = `₹${rent6Months}`;
+            document.getElementById('rent9Months').textContent = `₹${rent9Months}`;
+            document.getElementById('rent1Year').textContent = `₹${rent1Year}`;
+
+            // Show result section
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
